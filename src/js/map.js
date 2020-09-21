@@ -1,6 +1,8 @@
-// import { json_2020_LASAN_Ecotopes_0 } from "./data/2020_LASAN_Ecotopes_0.js";
-import { json_LA_River_v2_no_mz_2 } from "../data/LA_River_v2_no_mz_2.js";
-import { json_watershed_1 } from "../data/watershed_1.js";
+// import { ecotopesJson } from "./data/ecotopes.js";
+import { riversJson } from "../data/rivers.js";
+import { watershedJson } from "../data/watershed.js";
+import { LARWMP2018Json } from "../data/sites_2018.js";
+
 import L from "leaflet";
 
 export function initMap() {
@@ -28,7 +30,7 @@ export function createImageLayer(rasterFile) {
   return new L.imageOverlay(rasterFile, imgBounds);
 }
 
-// function style_2020_LASAN_Ecotopes_0_0() {
+// function style_ecotopes() {
 //   return {
 //     opacity: 1,
 //     color: "rgba(35,35,35,1.0)",
@@ -42,10 +44,6 @@ export function createImageLayer(rasterFile) {
 //     interactive: false,
 //   };
 // }
-// var layer_2020_LASAN_Ecotopes_0 = new L.geoJson(json_2020_LASAN_Ecotopes_0, {
-//   style: style_2020_LASAN_Ecotopes_0_0,
-// });
-// map.addLayer(layer_2020_LASAN_Ecotopes_0);
 
 export function createRiverLayer() {
   var style = {
@@ -59,7 +57,7 @@ export function createRiverLayer() {
     interactive: false,
   };
 
-  return new L.geoJson(json_LA_River_v2_no_mz_2, {
+  return new L.geoJson(riversJson, {
     style: style,
   });
 }
@@ -78,7 +76,23 @@ export function createWatershedLayer() {
     interactive: false,
   };
 
-  return new L.geoJson(json_watershed_1, {
+  return new L.geoJson(watershedJson, {
     style: style,
+  });
+}
+
+export function createLARWMP2018() {
+  var pointStyle = {
+    radius: 5,
+    fillColor: "#ff7800",
+    color: "#000",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8,
+  };
+  return new L.geoJson(LARWMP2018Json, {
+    pointToLayer: function(_feature, latlng) {
+      return L.circleMarker(latlng, pointStyle);
+    },
   });
 }

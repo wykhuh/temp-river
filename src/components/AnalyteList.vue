@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { createImageLayer } from "../js/map.js";
+import { createImageLayer, createLARWMP2018 } from "../js/map.js";
 import oxygenImg from "../assets/oxygen.png";
 import temperatureImg from "../assets/temperature.png";
 
@@ -25,16 +25,27 @@ export default {
     return {
       temperatureLayer: null,
       oxygenLayer: null,
+      LARWMP2018Layer: null,
     };
   },
   methods: {
-    toggleImageLayer: function (layer, image) {
-      if (this[layer]) {
-        this.map.removeLayer(this[layer]);
-        this[layer] = null;
+    toggleImageLayer: function (layerName, image) {
+      if (this[layerName]) {
+        this.map.removeLayer(this[layerName]);
+        this[layerName] = null;
       } else {
-        this[layer] = createImageLayer(image);
-        this.map.addLayer(this[layer]);
+        this[layerName] = createImageLayer(image);
+        this.map.addLayer(this[layerName]);
+      }
+    },
+
+    toggleJsonLayer: function (layerName, json) {
+      if (this[layerName]) {
+        this.map.removeLayer(this[layerName]);
+        this[layerName] = null;
+      } else {
+        this[layerName] = json;
+        this.map.addLayer(this[layerName]);
       }
     },
     addLayer: function (event) {
@@ -42,6 +53,11 @@ export default {
         this.toggleImageLayer("temperatureLayer", temperatureImg);
       } else if (event.target.value == "Dissolved Oxygen (mg/L)") {
         this.toggleImageLayer("oxygenLayer", oxygenImg);
+      } else if (
+        event.target.value ==
+        "Los Angeles River Water Monitoring Program (2018)"
+      ) {
+        this.toggleJsonLayer("LARWMP2018Layer", createLARWMP2018());
       }
     },
   },

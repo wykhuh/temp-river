@@ -3,49 +3,59 @@
     <h1>LA River Explorer</h1>
     <div class="container">
       <div id="controls">
-        <div>
-          <h2>Biodiversity</h2>
-          <div @click="toggleCollapse" class="category">
-            Biological Condition
+        <h2>Biodiversity</h2>
+        <div @click="toggleCollapse" class="category">
+          Biological Condition
 
-            <ul class="closed">
-              <li class="category">
-                Benthic Macroinvertebrates
-                <AnalyteList :list="Benthic_Macroinvertebrates" />
-              </li>
-              <li class="category">
-                Attached Algae
-                <AnalyteList :list="Attached_Algae" />
-              </li>
-              <li class="category">
-                Riparian Habitat Score
-                <AnalyteList :list="Riparian_Habitat_Score" />
-              </li>
-            </ul>
-          </div>
-          <h2>Enviromental Conditions</h2>
-          <div @click="toggleCollapse" class="category">
-            InSitu Measurements
-            <AnalyteList :list="InSitu_Measurements" :map="map" />
-          </div>
-          <div @click="toggleCollapse" class="category">
-            General Chemistry
-            <AnalyteList :list="General_Chemistry" />
-          </div>
-          <div @click="toggleCollapse" class="category">
-            Nutrients
-            <AnalyteList :list="Nutrients" />
-          </div>
-          <div @click="toggleCollapse" class="category">
-            Algal Biomass
-            <AnalyteList :list="Algal_Biomass" />
-          </div>
-          <div @click="toggleCollapse" class="category">
-            Dissolved Metals
-            <AnalyteList :list="Dissolved_Metals" />
-          </div>
+          <ul class="closed">
+            <li class="category">
+              Benthic Macroinvertebrates
+              <AnalyteList :list="Benthic_Macroinvertebrates" />
+            </li>
+            <li class="category">
+              Attached Algae
+              <AnalyteList :list="Attached_Algae" />
+            </li>
+            <li class="category">
+              Riparian Habitat Score
+              <AnalyteList :list="Riparian_Habitat_Score" />
+            </li>
+          </ul>
+        </div>
+
+        <h2>Enviromental Conditions</h2>
+        <div @click="toggleCollapse" class="category">
+          InSitu Measurements
+          <AnalyteList :list="InSitu_Measurements" :map="map" />
+        </div>
+
+        <div @click="toggleCollapse" class="category">
+          General Chemistry
+          <AnalyteList :list="General_Chemistry" />
+        </div>
+
+        <div @click="toggleCollapse" class="category">
+          Nutrients
+          <AnalyteList :list="Nutrients" />
+        </div>
+
+        <div @click="toggleCollapse" class="category">
+          Algal Biomass
+          <AnalyteList :list="Algal_Biomass" />
+        </div>
+
+        <div @click="toggleCollapse" class="category">
+          Dissolved Metals
+          <AnalyteList :list="Dissolved_Metals" />
+        </div>
+
+        <h2>Locations</h2>
+        <div @click="toggleCollapse" class="category">
+          Monitoring Locations
+          <AnalyteList :list="Locations" :map="map" />
         </div>
       </div>
+
       <div id="map"></div>
     </div>
   </div>
@@ -54,9 +64,6 @@
 <script>
 import { initMap, createRiverLayer, createWatershedLayer } from "../js/map.js";
 import AnalyteList from "./AnalyteList.vue";
-// import L from "leaflet";
-// import { json_LA_River_v2_no_mz_2 } from "../data/LA_River_v2_no_mz_2.js";
-// import { json_watershed_1 } from "../data/watershed_1.js";
 
 export default {
   name: "RiverExplorer",
@@ -66,6 +73,10 @@ export default {
   data: function () {
     return {
       map: null,
+      Locations: {
+        PouR: "PouR",
+        "Los Angeles River Water Monitoring Program (2018)": "LARWMP",
+      },
       Benthic_Macroinvertebrates: {
         CSCI: "CSCI",
         MMI: "MMI",
@@ -139,9 +150,7 @@ export default {
   mounted: function () {
     this.$nextTick(function () {
       this.map = initMap();
-
       this.map.addLayer(createWatershedLayer());
-
       this.map.addLayer(createRiverLayer());
     });
   },
@@ -149,6 +158,9 @@ export default {
 </script>
 
 <style scoped>
+.closed {
+  display: none;
+}
 .container {
   display: flex;
 }

@@ -1,4 +1,4 @@
-export var json_LA_River_v2_no_mz_2 = {
+export var riversJson = {
   type: "FeatureCollection",
   name: "LA_River_v2_no_mz_2",
   crs: { type: "name", properties: { name: "urn:ogc:def:crs:OGC:1.3:CRS84" } },
