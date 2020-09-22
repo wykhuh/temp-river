@@ -1,5 +1,5 @@
 <template>
-  <ul class="closed">
+  <ul :class="{ closed: !showList }">
     <li v-for="(value, key) in list" v-bind:key="key">
       <input
         type="checkbox"
@@ -20,7 +20,7 @@ import temperatureImg from "../assets/temperature.png";
 
 export default {
   name: "AnalyteList",
-  props: ["list", "map"],
+  props: ["list", "map", "showList"],
   data: function () {
     return {
       temperatureLayer: null,

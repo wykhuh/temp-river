@@ -4,6 +4,15 @@
     <div class="container">
       <div id="controls">
         <h2>Biodiversity</h2>
+        <input
+          type="text"
+          id="taxaKeyword"
+          v-model="taxaKeyword"
+          placeholder="Search species"
+        />
+        <AnalyteList :list="Biodiversity" :showList="true" />
+        <input type="submit" />
+
         <div @click="toggleCollapse" class="category">
           Biological Condition
 
@@ -72,7 +81,13 @@ export default {
   },
   data: function () {
     return {
+      taxaKeyword: null,
       map: null,
+      Biodiversity: {
+        eDNA: "eDNA",
+        iNaturalist: "iNaturalist",
+        eBird: "eBird",
+      },
       Locations: {
         PouR: "PouR",
         "Los Angeles River Water Monitoring Program (2018)": "LARWMP",
@@ -167,8 +182,9 @@ export default {
 #controls {
   width: 350px;
   /* border: 1px solid green; */
-  /* height: 700px; */
+  height: 700px;
   /* float: left; */
+  overflow: scroll;
 }
 
 #map {
